@@ -33,13 +33,20 @@ def process_one(inputs: Tuple[str, str, int]) -> None:
 def preprocess(
         data_path: str,
         output_path: str,
-        fs: int
+        fs: int,
+        n_files: int = None  # new optional argument
 ) -> None:
     files = glob.glob(os.path.join(data_path, "**", "*.wav"), recursive=True)
+    
+    # keep only the first n_files if specified
+    if n_files is not None:
+        files = files[:n_files]
+
+    print(f"Processing {len(files)} files:")
     print(files)
+
     outfiles = [
-            f.replace(data_path, output_path).replace(".wav", ".npy") for f in
-            files
+        f.replace(data_path, output_path).replace(".wav", ".npy") for f in files
     ]
 
     os.makedirs(output_path, exist_ok=True)

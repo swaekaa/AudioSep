@@ -292,6 +292,12 @@ class SingleMaskMultiSourceBandSplitRNN(SingleMaskMultiSourceBandSplitBase):
             pad_mode: str = "constant",
             onesided: bool = True,
     ) -> None:
+
+        self.band_specs_map = band_specs_map
+
+
+
+        
         super().__init__(
                 band_specs_map=band_specs_map,
                 fs=fs,
@@ -306,6 +312,8 @@ class SingleMaskMultiSourceBandSplitRNN(SingleMaskMultiSourceBandSplitBase):
                 pad_mode=pad_mode,
                 onesided=onesided,
         )
+
+      
 
         self.bsrnn = nn.ModuleDict(
                 {

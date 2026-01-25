@@ -111,7 +111,7 @@ class DivideAndRemasterDataset(DivideAndRemasterBaseDataset):
         ]
         # pprint(list(enumerate(files)))
         if split == "train":
-            assert len(files) == 3406, len(files)
+            assert len(files) == 425, len(files)
         elif split == "val":
             assert len(files) == 487, len(files)
         elif split == "test":
@@ -160,7 +160,7 @@ class DivideAndRemasterRandomChunkDataset(DivideAndRemasterBaseDataset):
         ]
 
         if split == "train":
-            assert len(files) == 3406, len(files)
+            assert len(files) == 425, len(files)
         elif split == "val":
             assert len(files) == 487, len(files)
         elif split == "test":
@@ -257,7 +257,7 @@ class DivideAndRemasterDeterministicChunkDataset(DivideAndRemasterBaseDataset):
         ]
         # pprint(list(enumerate(files)))
         if split == "train":
-            assert len(files) == 3406, len(files)
+            assert len(files) == 425, len(files)
         elif split == "val":
             assert len(files) == 487, len(files)
         elif split == "test":
@@ -375,7 +375,7 @@ if __name__ == "__main__":
 
     for split_ in ["train", "val", "test"]:
         ds = DivideAndRemasterRandomChunkDatasetWithSpeechReverb(
-                data_root="$DATA_ROOT/DnR/v2np",
+                data_root=r"F:\AudioSep\DnR\v2np",
                 split=split_,
                 target_length=100,
                 chunk_size_second=6.0

@@ -1,0 +1,81 @@
+seed: 42
+
+data:
+  data:
+    datamodule: DivideAndRemasterDataModule
+    data_root: F:/AudioSep/DnR/v2np
+    batch_size: 2
+    num_workers: 2
+    use_speech_reverb: false
+
+    train_kwargs:
+      target_length: 200
+      chunk_size_second: 6.0
+      fs: 44100
+      npy_memmap: true
+
+    val_kwargs:
+      chunk_size_second: 6.0
+      hop_size_second: 3.0
+      fs: 44100
+      npy_memmap: true
+
+    test_kwargs:
+      fs: 44100
+      npy_memmap: true
+
+trainer:
+  accelerator: gpu
+  devices: 1
+  max_epochs: 25
+  precision: 16-mixed
+  logger:
+    name: TensorBoardLogger
+    kwargs:
+      save_dir: logs/
+      name: dnr_subset_test
+      version: 1
+  callbacks:
+    - name: ModelCheckpoint
+      kwargs:
+        monitor: val/loss
+        mode: min
+        save_top_k: 1
+        save_last: true
+        filename: epoch{epoch:02d}
+    - name: LearningRateMonitor
+      kwargs:
+        logging_interval: step
+
+system:
+  model:
+    name: SingleMaskMultiSourceBandSplitRNN
+    kwargs:
+      in_channel: 1
+      fs: 44100
+      require_no_gap: true
+      band_specs_map:
+        speech:  [[0, 1025]]
+        music:   [[0, 1025]]
+        effects: [[0, 1025]]
+
+  loss:
+    name: MultiStemWrapperFromConfig
+    kwargs:
+      name: L1Loss
+      kwargs: { reduction: mean }
+      modality: audio
+
+  optimizer:
+    optimizer:
+      name: Adam
+      kwargs:
+        lr: 0.0001
+
+  metrics:
+    dev: []
+    test: []
+
+  inference:
+    fader:
+      enabled: false
