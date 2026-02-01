@@ -33,3 +33,6 @@
    ├── Compare with baseline
    ├── Add improvements (temporal attention, audio-visual alignment)
    └── Release CLI/API for use
+
+
+AudioSep → benchmark → add visual understanding → fuse audio-video → train
