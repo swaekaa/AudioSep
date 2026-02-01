@@ -1,0 +1,35 @@
+0. Project Setup
+   ├── Fork / clone repo
+   ├── Create virtual environment and install dependencies
+   └── Get AudioSep pretrained weights
+
+1. Data Preparation
+   ├── Collect training data (video + audio)
+   ├── Synchronize audio and frames
+   └── Label separation targets if needed
+
+2. Visual Feature Extraction
+   ├── Pretrain or use off-the-shelf video encoders
+   ├── Extract features per frame
+   └── Store for training
+
+3. Model Integration
+   ├── Add visual encoder branch
+   ├── Fuse into AudioSep separation network
+   └── Condition separation masks with visual + text
+
+4. Training
+   ├── Train on multimodal dataset
+   ├── Use losses like L1, SDR optimization
+   └── Validate on benchmark cinematic splits
+
+5. Inference Pipeline
+   ├── Input: video + audio
+   ├── Extract visual features on the fly
+   ├── Condition text + video for desired source
+   └── Output separated stems for post-production
+
+6. Evaluation / Iteration
+   ├── Compare with baseline
+   ├── Add improvements (temporal attention, audio-visual alignment)
+   └── Release CLI/API for use
