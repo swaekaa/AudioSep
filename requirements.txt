@@ -1,0 +1,16 @@
+torch
+torchaudio
+torchvision
+numpy
+scipy
+pandas
+librosa
+soundfile
+tqdm
+matplotlib
+pyyaml
+einops
+tensorboard
+wandb
+transformers
+accelerate
